@@ -9,14 +9,20 @@ export default function Product() {
     const res = await axios.get("http://localhost:8080/products");
     setProducts(res.data);
   };
+
   useEffect(() => {
     fetchProducts();
   }, []);
+
   return (
     <div>
       <h3>Welcome {user.name}! </h3>
-      Product List
-      {products && products.map((value) => <li>{value.name}</li>)}
+      <h2>Product List</h2>
+      {products.map(product => (
+          <li key={product.id} style={{ margin: "10px 0" }}>
+            <strong>{product.name}</strong>: ${product.price}
+          </li>
+        ))}
     </div>
   );
 }
