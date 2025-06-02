@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
-import "./Logout.css";
+//import "./Logout.css";
 
 export default function Logout() {
   const { setUser } = useContext(AppContext);
