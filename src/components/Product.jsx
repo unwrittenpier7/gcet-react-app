@@ -6,7 +6,7 @@ export default function Product() {
   const { user } = useContext(AppContext);
   const [products, setProducts] = useState([]);
   const fetchProducts = async () => {
-    const res = await axios.get("https://gcet-node-app-git-main-joel-peters-projects.vercel.app/products/find");
+    const res = await axios.get("https://gcet-node-app-git-main-joel-peters-projects.vercel.app/products/all");
     setProducts(res.data);
   };
 
