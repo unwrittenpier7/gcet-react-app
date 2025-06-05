@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../App";
 import axios from "axios";
-import './Product.css';
+import "./Product.css"
 
 export default function Product() {
   const { user } = useContext(AppContext);
