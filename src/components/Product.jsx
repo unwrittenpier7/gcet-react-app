@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { AppContext } from "../App";
 import axios from "axios";
+import "./Product.css"
 export default function Product() {
   const { user } = useContext(AppContext);
   const [products, setProducts] = useState([]);
@@ -14,15 +15,19 @@ export default function Product() {
     fetchProducts();
   }, []);
 
-  return (
+ return (
     <div>
       <h3>Welcome {user.name}! </h3>
-      <h2>Product List</h2>
-      {products.map(product => (
-          <li key={product.id} style={{ margin: "10px 0" }}>
-            <strong>{product.name}</strong>: ${product.price}
-          </li>
-        ))}
+      <div className="App-Product-Row">
+        {products &&
+          products.map((value) => (
+            <div key={value._id}>
+              <h3>{value.name}</h3>
+              <h4>{value.price}</h4>
+              <button>Add to Cart</button>
+            </div>
+          ))}
+      </div>
     </div>
   );
 }
