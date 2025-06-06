@@ -2,6 +2,7 @@ import React from "react";
 import App, { AppContext } from "../App";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
+import "./Header.css";
 export default function Header() {
   const { user } = useContext(AppContext);
   return (

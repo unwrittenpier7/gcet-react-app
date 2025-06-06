@@ -1,0 +1,160 @@
+
+
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f7fa;
+  color: #333;
+  line-height: 1.6;
+}
+
+/* Header */
+header {
+  background-color: #1e90ff;
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+}
+
+/* Navigation */
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: #fff;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Main Container */
+main {
+  padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+}
+
+/* Product Grid */
+.product-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Product Card */
+.product-card {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 250px;
+  padding: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.product-card h3 {
+  margin: 10px 0;
+}
+
+.product-card p {
+  margin-bottom: 10px;
+}
+
+.product-card button {
+  background-color: #28a745;
+  border: none;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-card button:hover {
+  background-color: #218838;
+}
+
+/* Cart */
+.cart-container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+/* Form (Login/Register) */
+.auth-form {
+  max-width: 400px;
+  margin: auto;
+  background: #ffffff;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.auth-form h2 {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.auth-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.auth-form button {
+  width: 100%;
+  padding: 10px;
+  background-color: #1e90ff;
+  border: none;
+  color: white;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-form button:hover {
+  background-color: #0f76d6;
+}
+
+/* Footer */
+footer {
+  background-color: #1e90ff;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+  margin-top: 40px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .product-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+}
