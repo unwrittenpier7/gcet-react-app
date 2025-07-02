@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useContext } from "react";
 import { AppContext } from "../App";
-import { useEffect } from "react";
 import axios from "axios";
+import "./Order.css";
+
 export default function Order() {
   const [orders, setOrders] = useState([]);
   const { user } = useContext(AppContext);
@@ -11,22 +12,30 @@ export default function Order() {
   const fetchOrders = async () => {
     const res = await axios.get(`${API}/orders/${user.email}`);
     setOrders(res.data);
-  }
+  };
 
   useEffect(() => {
-fetchOrders()
-  }, []);
+    if (user.email) {
+      fetchOrders();
+    }
+  }, [user]);
+
   return (
-    <div>
-      <h3>My Orders</h3>
-      <ol>
-        {orders &&
-          orders.map((value) => (
-            <li key={value._id}>
-              {value.email}-{value.orderValue}
-            </li>
+    <div className="order-container">
+      <h2 className="order-title">My Orders</h2>
+      {orders.length > 0 ? (
+        <div className="order-list">
+          {orders.map((value) => (
+            <div key={value._id} className="order-item">
+              <p className="order-id">Order ID: {value._id}</p>
+              <p class31="order-email">Email: {value.email}</p>
+              <p className="order-total">Total: ${value.orderValue.toFixed(2)}</p>
+            </div>
           ))}
-      </ol>
+        </div>
+      ) : (
+        <p className="order-empty">No orders found.</p>
+      )}
     </div>
   );
 }

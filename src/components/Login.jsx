@@ -5,8 +5,8 @@ import axios from "axios";
 import "./Login.css";
 
 export default function Login() {
-  const { users, user, setUser } = useContext(AppContext);
-  const [msg, setMsg] = useState();
+  const { user, setUser } = useContext(AppContext);
+  const [msg, setMsg] = useState("");
   const Navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
 
@@ -33,26 +33,30 @@ export default function Login() {
 
   return (
     <div className="login-container">
-      <h3>Login</h3>
-      {msg && <div className="message">{msg}</div>}
-      <p>
-        <input
-          type="text"
-          placeholder="Email address"
-          onChange={(e) => setUser({ ...user, email: e.target.value })}
-        />
-      </p>
-      <p>
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setUser({ ...user, pass: e.target.value })}
-        />
-      </p>
-      <button onClick={handleSubmit}>Submit</button>
-      <p>
-        <button onClick={goToRegister}>Create Account</button>
-      </p>
+      <div className="login-card">
+        <h3 className="login-title">Login</h3>
+        {msg && <div className="login-message">{msg}</div>}
+        <div className="login-form">
+          <input
+            type="text"
+            placeholder="Email address"
+            className="login-input"
+            onChange={(e) => setUser({ ...user, email: e.target.value })}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            className="login-input"
+            onChange={(e) => setUser({ ...user, pass: e.target.value })}
+          />
+          <button onClick={handleSubmit} className="login-submit-button">
+            Submit
+          </button>
+          <button onClick={goToRegister} className="login-register-button">
+            Create Account
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

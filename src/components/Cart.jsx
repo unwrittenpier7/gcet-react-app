@@ -3,66 +3,98 @@ import { useContext } from "react";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./Cart.css";
+
 export default function Cart() {
   const { cart, setCart, products, user } = useContext(AppContext);
   const [orderValue, setOrderValue] = useState(0);
-const Navigate = useNavigate()
+  const Navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
+
   useEffect(() => {
     setOrderValue(
       products.reduce((sum, value) => {
-        return sum + value.price * (cart[value.pid] ?? 0);
+        return sum + value.price * (cart[value.pid] || 0);
       }, 0)
     );
-  }, []);
+  }, [cart, products]);
 
   const increment = (id) => {
-    alert(id);
-    cart[id] = cart[id] + 1;
-    console.log(cart);
+    setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
   };
+
   const decrement = (id) => {
-    alert(id);
-    cart[id] = cart[id] - 1;
-    console.log(cart);
+    if (cart[id] > 1) {
+      setCart((prev) => ({ ...prev, [id]: prev[id] - 1 }));
+    } else {
+      const newCart = { ...cart };
+      delete newCart[id];
+      setCart(newCart);
+    }
   };
 
   const placeOrder = async () => {
     const url = `${API}/orders/new`;
     await axios.post(url, { email: user.email, orderValue: orderValue });
     setCart({});
-    Navigate("/order")
+    Navigate("/orders");
   };
 
   const loginToOrder = () => {
-    Navigate("/login")
-  }
+    Navigate("/login");
+  };
+
   return (
-    <div>
-      My Cart
-      {products &&
-        products.map(
-          (value) =>
-            cart[value.pid] && (
-              <div key={value.pid}>
-                {value.pid}
-                {value.name}-{value.price}-
-                <button onClick={() => decrement(value.pid)}>-</button>
-                {cart[value.pid]}
-                <button onClick={() => increment(value.pid)}>+</button>
-                {value.price * cart[value.pid]}
+    <div className="cart-container">
+      <h2 className="cart-title">My Cart</h2>
+      {Object.keys(cart).length > 0 ? (
+        <div className="cart-items">
+          {products
+            .filter((value) => cart[value.pid])
+            .map((value) => (
+              <div key={value.pid} className="cart-item">
+                <img
+                  src={`https://picsum.photos/100/100?random=${value.pid}`}
+                  alt={value.name}
+                  className="cart-item-image"
+                />
+                <div className="cart-item-details">
+                  <h3 className="cart-item-name">{value.name}</h3>
+                  <p className="cart-item-price">Unit Price: ${value.price.toFixed(2)}</p>
+                  <p className="cart-item-total">Total: ${(value.price * cart[value.pid]).toFixed(2)}</p>
+                  <div className="cart-item-controls">
+                    <button
+                      onClick={() => decrement(value.pid)}
+                      className="cart-control-button"
+                    >
+                      -
+                    </button>
+                    <span className="cart-quantity">{cart[value.pid]}</span>
+                    <button
+                      onClick={() => increment(value.pid)}
+                      className="cart-control-button"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
               </div>
-            )
-        )}
-      <hr />
-      <h3>Order Value:{orderValue}</h3>
-      <hr />
-      {user.name ? (
-        <button onClick={placeOrder}>Place Order</button>
+            ))}
+          <hr className="cart-divider" />
+          <h3 className="cart-total">Order Total: ${orderValue.toFixed(2)}</h3>
+          {user.name ? (
+            <button onClick={placeOrder} className="cart-order-button">
+              Place Order
+            </button>
+          ) : (
+            <button onClick={loginToOrder} className="cart-login-button">
+              Login to Order
+            </button>
+          )}
+        </div>
       ) : (
-        <button onClick={loginToOrder}>Login to Order</button>
+        <p className="cart-empty">Your cart is empty.</p>
       )}
-      <hr />
     </div>
   );
 }

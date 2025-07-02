@@ -1,0 +1,32 @@
+.about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .about-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .about-content {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1.5rem;
+  }
+  
+  .about-text {
+    color: #374151;
+    margin-bottom: 1rem;
+  }
+  
+  .about-link {
+    color: #2563eb;
+    text-decoration: none;
+  }
+  
+  .about-link:hover {
+    text-decoration: underline;
+  }

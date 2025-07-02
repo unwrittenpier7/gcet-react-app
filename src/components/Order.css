@@ -1,0 +1,39 @@
+.order-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+  
+  .order-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  
+  .order-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .order-item {
+    background: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 1rem;
+  }
+  
+  .order-id,
+  .order-email {
+    color: #4b5563;
+    margin: 0.25rem 0;
+  }
+  
+  .order-total {
+    font-size: 1.125rem;
+    font-weight: 600;
+  }
+  
+  .order-empty {
+    color: #6b7280;
+  }
