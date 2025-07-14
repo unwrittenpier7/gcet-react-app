@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { AppContext } from "../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -14,7 +13,7 @@ export default function Cart() {
   useEffect(() => {
     setOrderValue(
       products.reduce((sum, value) => {
-        return sum + value.price * (cart[value.pid] || 0);
+        return sum + value.price * (cart[value._id] || 0);
       }, 0)
     );
   }, [cart, products]);
@@ -35,7 +34,7 @@ export default function Cart() {
 
   const placeOrder = async () => {
     const url = `${API}/orders/new`;
-    await axios.post(url, { email: user.email, orderValue: orderValue });
+    await axios.post(url, { email: user.email, orderValue });
     setCart({});
     Navigate("/orders");
   };
@@ -50,28 +49,28 @@ export default function Cart() {
       {Object.keys(cart).length > 0 ? (
         <div className="cart-items">
           {products
-            .filter((value) => cart[value.pid])
+            .filter((value) => cart[value._id])
             .map((value) => (
-              <div key={value.pid} className="cart-item">
+              <div key={value._id} className="cart-item">
                 <img
-                  src={`https://picsum.photos/100/100?random=${value.pid}`}
+                  src={value.imageUrl}
                   alt={value.name}
                   className="cart-item-image"
                 />
                 <div className="cart-item-details">
                   <h3 className="cart-item-name">{value.name}</h3>
                   <p className="cart-item-price">Unit Price: ${value.price.toFixed(2)}</p>
-                  <p className="cart-item-total">Total: ${(value.price * cart[value.pid]).toFixed(2)}</p>
+                  <p className="cart-item-total">Total: ${(value.price * cart[value._id]).toFixed(2)}</p>
                   <div className="cart-item-controls">
                     <button
-                      onClick={() => decrement(value.pid)}
+                      onClick={() => decrement(value._id)}
                       className="cart-control-button"
                     >
                       -
                     </button>
-                    <span className="cart-quantity">{cart[value.pid]}</span>
+                    <span className="cart-quantity">{cart[value._id]}</span>
                     <button
-                      onClick={() => increment(value.pid)}
+                      onClick={() => increment(value._id)}
                       className="cart-control-button"
                     >
                       +

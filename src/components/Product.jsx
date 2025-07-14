@@ -7,7 +7,7 @@ import "./Product.css";
 export default function Product() {
   const { user, products, setProducts, cart, setCart } = useContext(AppContext);
   const [search, setSearch] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState(null); // ✅ Modal state
+  const [selectedProduct, setSelectedProduct] = useState(null);
   const API = import.meta.env.VITE_API_URL;
 
   useEffect(() => {
@@ -22,7 +22,7 @@ export default function Product() {
     setCart((prev) => ({ ...prev, [id]: (prev[id] || 0) + 1 }));
   };
 
-  const isInCart = (pid) => cart[pid] > 0;
+  const isInCart = (id) => cart[id] > 0;
 
   const filteredProducts = products.filter((p) =>
     p.name.toLowerCase().includes(search.toLowerCase())
@@ -45,10 +45,10 @@ export default function Product() {
           filteredProducts.map((value) => (
             <div key={value._id} className="product-card">
               <img
-                src={`https://picsum.photos/300/200?random=${value.pid}`}
+                src={value.imageUrl}
                 alt={value.name}
                 className="product-image"
-                onClick={() => setSelectedProduct(value)} // ✅ open modal
+                onClick={() => setSelectedProduct(value)}
                 style={{ cursor: "pointer" }}
               />
               <div className="product-details">
@@ -56,11 +56,11 @@ export default function Product() {
                 <p className="product-description">{value.description}</p>
                 <h4 className="product-price">${value.price.toFixed(2)}</h4>
                 <button
-                  onClick={() => addToCart(value.pid)}
+                  onClick={() => addToCart(value._id)}
                   className="product-button"
-                  disabled={isInCart(value.pid)}
+                  disabled={isInCart(value._id)}
                 >
-                  {isInCart(value.pid) ? "Added" : "Add to Cart"}
+                  {isInCart(value._id) ? "Added" : "Add to Cart"}
                 </button>
               </div>
             </div>
@@ -70,16 +70,13 @@ export default function Product() {
         )}
       </div>
 
-      {/* ✅ Product Modal */}
+      {/* Modal */}
       {selectedProduct && (
         <div className="modal-overlay" onClick={() => setSelectedProduct(null)}>
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
             <span className="modal-close" onClick={() => setSelectedProduct(null)}>×</span>
             <img
-              src={`https://picsum.photos/400/300?random=${selectedProduct.pid}`}
+              src={selectedProduct.imageUrl}
               alt={selectedProduct.name}
               style={{ width: "100%", borderRadius: "8px", marginBottom: "15px" }}
             />
@@ -88,13 +85,13 @@ export default function Product() {
             <p><strong>Price:</strong> ${selectedProduct.price.toFixed(2)}</p>
             <button
               onClick={() => {
-                addToCart(selectedProduct.pid);
+                addToCart(selectedProduct._id);
                 setSelectedProduct(null);
               }}
               className="product-button"
-              disabled={isInCart(selectedProduct.pid)}
+              disabled={isInCart(selectedProduct._id)}
             >
-              {isInCart(selectedProduct.pid) ? "Already in Cart" : "Add to Cart"}
+              {isInCart(selectedProduct._id) ? "Already in Cart" : "Add to Cart"}
             </button>
           </div>
         </div>

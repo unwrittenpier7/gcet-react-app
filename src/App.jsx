@@ -1,42 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./Header";
-import Product from "./Product";
-import Cart from "./Cart";
-import Order from "./Order";
-import Login from "./Login";
-import Logout from "./Logout";
-import Home from "./Home";
-import About from "./About";
-import Register from "./Register"; // ✅ Added Register route
-import Footer from "./Footer";
+import Header from "./components/Header";
+
+import Product from "./components/Product";
+import Cart from "./components/Cart";
+import Order from "./components/Order";
+import Login from "./components/Login";
+import Logout from "./components/Logout";
+import Home from "./components/Home";
+import About from "./components/About";
+import Register from "./components/Register";
+import Footer from "./components/Footer";
 
 export const AppContext = React.createContext();
 
 export default function App() {
-  // Global states
   const [cart, setCart] = useState({});
   const [products, setProducts] = useState([]);
   const [user, setUser] = useState({});
 
-  // ✅ Load cart from localStorage on startup
+  // Restore cart from localStorage
   useEffect(() => {
     const savedCart = localStorage.getItem("cart");
     if (savedCart) setCart(JSON.parse(savedCart));
   }, []);
 
-  // ✅ Save cart to localStorage when it changes
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cart));
   }, [cart]);
 
-  // ✅ Load user from localStorage on startup
+  // Restore user from localStorage
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
     if (savedUser) setUser(JSON.parse(savedUser));
   }, []);
 
-  // ✅ Save user to localStorage when it changes
   useEffect(() => {
     localStorage.setItem("user", JSON.stringify(user));
   }, [user]);
@@ -57,7 +55,7 @@ export default function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/logout" element={<Logout />} />
               <Route path="/about" element={<About />} />
-              <Route path="/register" element={<Register />} /> {/* ✅ Register route */}
+              <Route path="/register" element={<Register />} />
             </Routes>
           </main>
           <Footer />

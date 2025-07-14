@@ -9,7 +9,7 @@ export default function Header() {
   return (
     <header className="header">
       <div className="header-container">
-        <h1 className="header-title">My Online Shop</h1>
+        <h1 className="header-title">SHOPBY</h1>
         <nav className="header-nav">
           <Link to="/" className="header-link">Home</Link>
           <Link to="/products" className="header-link">Products</Link>
