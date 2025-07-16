@@ -32,8 +32,8 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Keyboard */}
-          <div className="home-product-card">
+          {/* Keyboard 
+          /*{<div className="home-product-card">
             <img
               src="https://images.unsplash.com/photo-1555633519-514a83d2d510"
               alt="Keyboard"
@@ -44,7 +44,7 @@ export default function Home() {
               <p className="home-product-price">$75</p>
               <p className="home-product-description">Mechanical keyboard with RGB lighting.</p>
             </div>
-          </div>
+          </div>} */}
 
           {/* Tablet */}
           <div className="home-product-card">

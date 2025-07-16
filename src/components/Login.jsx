@@ -5,7 +5,9 @@ import axios from "axios";
 import "./Login.css";
 
 export default function Login() {
-  const { user, setUser } = useContext(AppContext);
+  const { setUser } = useContext(AppContext);
+  const [email, setEmail] = useState("");
+  const [pass, setPass] = useState("");
   const [msg, setMsg] = useState("");
   const Navigate = useNavigate();
   const API = import.meta.env.VITE_API_URL;
@@ -13,13 +15,12 @@ export default function Login() {
   const handleSubmit = async () => {
     try {
       const url = `${API}/users/login`;
-      const found = await axios.post(url, user);
-
-      if (found.data.email) {
-        setUser(found.data);
+      const res = await axios.post(url, { email, pass }); // or password: pass
+      if (res.data.email) {
+        setUser(res.data);
         Navigate("/");
       } else {
-        setMsg("Invalid User or Password");
+        setMsg("Invalid Email or Password");
       }
     } catch (error) {
       setMsg("Login failed. Please try again.");
@@ -41,13 +42,15 @@ export default function Login() {
             type="text"
             placeholder="Email address"
             className="login-input"
-            onChange={(e) => setUser({ ...user, email: e.target.value })}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="Password"
             className="login-input"
-            onChange={(e) => setUser({ ...user, pass: e.target.value })}
+            value={pass}
+            onChange={(e) => setPass(e.target.value)}
           />
           <button onClick={handleSubmit} className="login-submit-button">
             Submit
